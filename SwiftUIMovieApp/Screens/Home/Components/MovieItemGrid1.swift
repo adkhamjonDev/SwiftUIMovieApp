@@ -11,6 +11,11 @@ struct MovieItemGrid1: View {
     
     let movieModel:MovieModel
     
+    init(movieModel:MovieModel){
+        self.movieModel = movieModel
+        print("DETAIL SCREEN FROM NAVIGATION LINK")
+    }
+    
     var body: some View {
         ZStack {
             HStack {
@@ -36,7 +41,7 @@ struct MovieItemGrid1: View {
             }
             .foregroundColor(.white)
         }
-        .frame(width: .infinity,height: 150)
+        .frame(height: 150)
         .background(Color.themeColors.backgoundColor)
        
             
@@ -59,7 +64,7 @@ struct MovieItemGrid1Image: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 105,height: 150)
+                .frame(width: 105)
             
         }
             
@@ -72,4 +77,5 @@ struct MovieItemGrid1Image: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     MovieItemGrid1Image(imageUrl: PreviewData.instance.movie.posterPath)
+        
 }

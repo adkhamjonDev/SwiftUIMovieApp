@@ -14,22 +14,23 @@ class HomeViewModel:ObservableObject {
     
     @Published var movieList:[MovieModel] = []
     private let movieService = MovieService()
-
+    private var currentPage: Int = 1
+    
+    private var totalPages:Int = 0
+    
     init() {
         fetchMovies()
     }
     
     private func fetchMovies() {
         movieService.$movies
-                   .receive(on: DispatchQueue.main) // Ensure updates happen on the main thread
+                   .receive(on: DispatchQueue.main)
                    .assign(to: &$movieList)
         
     }
     
-    func loadMoreMovies(of movie:MovieModel) {
-        if ( movieList.last?.id == movie.id ) {
-            movieService.getPaginatedMovies()
-        }
+    func loadMoreMovies() {
+        movieService.getPaginatedMovies()
     }
     
 }
