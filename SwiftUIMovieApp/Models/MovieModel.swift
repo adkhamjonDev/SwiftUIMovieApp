@@ -7,6 +7,12 @@
 
 import Foundation
 
+/*
+ 
+ --url 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1' \
+
+ 
+ */
 
 struct MovieModel:Identifiable, Codable {
     let adult: Bool

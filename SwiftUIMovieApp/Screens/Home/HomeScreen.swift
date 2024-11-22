@@ -8,21 +8,41 @@
 import SwiftUI
 
 struct HomeScreen: View {
+    
+    @EnvironmentObject private var viewModel:HomeViewModel
+    
+    private let gridColumns1: [GridItem] = [
+        GridItem(.flexible())
+    ]
+    
+    
     var body: some View {
         
         ZStack {
             Color.themeColors.backgoundColor.ignoresSafeArea()
-            ScrollView(showsIndicators: false){
-                
+            
+            ScrollView {
+                LazyVGrid(columns: gridColumns1,spacing: 0){
+                    ForEach(viewModel.movieList,id:\.id){ item in
+                        MovieItemGrid1(movieModel: item)
+                            .task {
+                                await viewModel.loadMoreMovies(of: item)
+                            }
+                            
+                    }
+                }
             }
+            .accentColor(Color.themeColors.backgoundColor)
+            .navigationTitle("Movies")
+            
         }
-        .navigationTitle("Movies")
-       
     }
 }
 
 #Preview {
     NavigationStack {
         HomeScreen()
+            .environmentObject(HomeViewModel())
     }
+
 }
